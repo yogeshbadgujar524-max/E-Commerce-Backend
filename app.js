@@ -24,7 +24,10 @@ router.post("/create", createOrder);
 
 router.get("/all-orders", getOrders);
 
-
-dbConnection();
-
+app.use((req,res,next)=>{
+    if(!IsConnected){
+        dbConnection()
+    }
+    next()
+})
 export default app
