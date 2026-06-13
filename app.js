@@ -9,7 +9,7 @@ const app = express()
 dotenv.config({path:"./config/config.env"});
 
 app.use(cors({
-    origin:[process.env.FRONTEND_URL],
+    origin:[process.env.FRONTEND_URL,"https://e-commerce-frontend-q3cm.vercel.app/"],
     methods:["GET","POST","PUT","DELETE"],
     credentials:true
 }))
