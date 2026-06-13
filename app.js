@@ -18,7 +18,7 @@ app.use(express.json())
 
 app.use(express.urlencoded({extended:true}))
 
-app.use('/api/users',router)
+app.use('/api',router)
 
 router.post("/create", createOrder);
 
