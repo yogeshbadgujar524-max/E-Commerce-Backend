@@ -1,33 +1,35 @@
-import express from 'express'
-import cors from 'cors'
-import dotenv from 'dotenv'
-import { dbConnection } from './Databases/dbConnection.js';
-import router from './Routes/EcommerceRoute.js';
-import { createOrder,getOrders } from './Controller/Orders.js';
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
 
-const app = express()
-dotenv.config({path:"./config/config.env"});
+import { dbConnection } from "./Databases/dbConnection.js";
+import router from "./Routes/EcommerceRoute.js";
 
-app.use(cors({
-    origin:[process.env.FRONTEND_URL,"https://e-commerce-frontend-q3cm.vercel.app/"],
-    methods:["GET","POST","PUT","DELETE"],
-    credentials:true
-}))
+const app = express();
 
-app.use(express.json())
+dotenv.config({
+  path: "./config/config.env",
+});
 
-app.use(express.urlencoded({extended:true}))
+// Database Connection
+dbConnection();
 
-app.use('/api',router)
+// Middleware
+app.use(
+  cors({
+    origin: [
+      process.env.FRONTEND_URL,
+      "https://e-commerce-frontend-q3cm.vercel.app",
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 
-router.post("/create", createOrder);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-router.get("/all-orders", getOrders);
+// Routes
+app.use("/api", router);
 
-app.use((req,res,next)=>{
-    if(!IsConnected){
-        dbConnection()
-    }
-    next()
-})
-export default app
+export default app;

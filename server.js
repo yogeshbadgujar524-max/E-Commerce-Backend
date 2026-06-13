@@ -1,9 +1,18 @@
-import app from './app.js'
+import dotenv from "dotenv";
+import app from "./app.js";
 
-if(process.env.MONGO_URI !== "production"){
-app.listen(process.env.PORT,()=>{
-    console.log(`Server is running on ${process.env.PORT}`);
+dotenv.config({
+  path: "./config/config.env",
 });
+
+if (process.env.NODE_ENV !== "production") {
+  app.listen(process.env.PORT || 4000, () => {
+    console.log(
+      `Server is running on port ${
+        process.env.PORT || 4000
+      }`
+    );
+  });
 }
 
 export default app;
